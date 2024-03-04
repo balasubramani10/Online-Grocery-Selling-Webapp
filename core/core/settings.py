@@ -91,14 +91,20 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 #DATABASE - SQL(krishna_store)
 
+#DATABASES = {
+#   'default': {
+#       'ENGINE': 'django.db.backends.mysql',
+#       "HOST" : "localhost",
+#       'NAME': "krishna_store_django",
+#        "USER" : "root",
+#       "PASSWORD" : "admin",
+#       "PORT" : "3306"
+#   }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        "HOST" : "localhost",
-        'NAME': "krishna_store_django",
-        "USER" : "root",
-        "PASSWORD" : "admin",
-        "PORT" : "3306"
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
