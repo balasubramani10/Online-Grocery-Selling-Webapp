@@ -1,0 +1,26 @@
+{% block content %}
+{% load static %}
+
+<!-- Categories Section Below -->
+<section class="categories sectionPadding">
+    <div class="catVerScrollBtn verScrollBtn">
+        <img src="{% static 'images/icons/back.png'%}" alt="">
+    </div>
+    <div class="categoriesLinks">
+        {% for i in all_category  %}
+        <div class="categorieLink">
+            <a href="{% url "category" i.slug %}">
+                <img src="{{i.image}}" alt="">
+            </a>
+        </div>
+        {% endfor %}
+        
+        
+    </div>
+    <div class="catVerScrollBtn verScrollBtn">
+        <img src="{% static 'images/icons/next.png'%}" alt="">
+    </div>
+</section>
+<!-- Categories Section Above -->
+
+{% endblock content %}

@@ -1,0 +1,9 @@
+{% block content %}
+
+{% if messages %}
+
+    {% for message in messages %}
+    <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+    {% endfor %}
+{% endif %}
+{% endblock content %}

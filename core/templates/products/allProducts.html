@@ -1,0 +1,186 @@
+{% extends "base/base.html" %}
+{% block title %}Shop All - Krishna Store{% endblock title %}Shop All - Krishna Store
+{% load static %} 
+{% block content %} 
+{% include "components/header.html" %}
+<!-- Shop Container Below -->
+<div class="shopContainer sectionPadding">
+  <div class="shopContainerLeft">
+    <div class="fillterByPriceBox box">
+      <div class="boxHead">
+        <h4>Fillter By Price</h4>
+      </div>
+      <div class="flitterSlider">
+        <input type="range" />
+      </div>
+      <div class="fillterBtn">
+        <button>Fillter</button>
+      </div>
+    </div>
+    <div class="ProductCategoriesBox box">
+      <div class="boxHead">
+        <h4>Fillter By Categories</h4>
+      </div>
+      <div class="categoriesChoiceList filterLists">
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Rices</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Dals</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Spices</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Organic</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Personal Care</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Kitchen</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Pet Care</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Personal Care</label>
+        </div>
+      </div>
+    </div>
+    <div class="fillterByStatus box">
+      <div class="boxHead">
+        <h4>Fillter By Status</h4>
+      </div>
+      <div class="statusChoiceList filterLists">
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">Only Veg</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">On Sale</label>
+        </div>
+        <div class="fillterList">
+          <input type="checkbox" /><label for="">In Stock</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shopContainerRight">
+    <div class="banner">
+      <h4>Quality & Freshness Gaurantee !</h4>
+    </div>
+    <div class="containerNavigation">
+      <select name="" id="">
+        <option value="">Sort By</option>
+        <option value="">Popular</option>
+        <option value="">Latest</option>
+        <option value="">Low Price First</option>
+        <option value="">High Price First</option>
+        <option value="">Discounts</option>
+      </select>
+    </div>
+    <div class="shopContainerContects shopAllProducts">
+      {% for i in products %}
+
+      <div class="todayDealsBox productBox">
+        <input type="hidden" id="pid" value="{{i.u_id}}">
+        <div class="top">
+          <span class="off">{{i.discount_percentage}}%</span>
+          <span
+            ><img src="{% static 'images/icons/vegIcon.png' %}" alt=""
+          /></span>
+        </div>
+        <div class="productImg">
+          <a href="{% url 'view_product' i.slug %}">
+            <img src="/{{i.images.first.image}}" alt="" />
+          </a>
+        </div>
+        <div class="productLabel">
+          <h4>{{i.name}}</h4>
+        </div>
+        {% comment %}
+        <div class="productqty">
+          <span>Organic</span>
+          <span>|</span>
+          <span>1 kg</span>
+        </div>
+        {% endcomment %}
+        <div class="prouctPrice">
+          <span class="oldPrice"> ₹{{i.retail_price}} </span>
+          <span class="currentPrice"> ₹{{i.selling_price}} </span>
+        </div>
+        <div class="productQtySelect">
+          <div class="minus">
+            <h2>&minus;</h2>
+          </div>
+          <div class="producctQtyNos">
+            <input type="number" value="1" />
+          </div>
+          <div class="plus">
+            <h2>&plus;</h2>
+          </div>
+        </div>
+        {% if i.stock > 0 %}
+        <div class="addTOCartBtn invert">
+          <button>Add To Cart</button>
+        </div>
+        {% else %}
+        <div class="addTOCartBtn invert">
+          <button>Out Of Stock</button>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="containerBottomNavigation">
+      <div class="btns">
+        <div class="btn active">
+          <h4>1</h4>
+        </div>
+        <div class="btn">
+          <h4>2</h4>
+        </div>
+        <div class="btn">
+          <h4>3</h4>
+        </div>
+        <div class="btn">
+          <h4>4</h4>
+        </div>
+        <div class="btn">
+          <h4>></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Shop Container Above -->
+{% include "components/footer.html" %} 
+{% endblock content %} 
+{% block script %}
+<script>
+  var productBox = document.querySelectorAll(".productBox");
+  console.log(productBox);
+  productBox.forEach(function (i) {
+    let plusBtn = i.querySelector(".plus");
+    let minusBtn = i.querySelector(".minus");
+    let qty = i.querySelector(".producctQtyNos input");
+    let pid = i.querySelector("#pid").value;
+    let addBtn = i.querySelector(".addTOCartBtn");
+    let buyBtn = i.querySelector("#buyNow");
+
+    plusBtn.addEventListener("click", function () {
+      if (qty.value < 10) {
+        qty.value++;
+      }
+    });
+    minusBtn.addEventListener("click", function () {
+      if (qty.value > 1) {
+        qty.value--;
+      }
+    });
+    addBtn.addEventListener("click", () => {
+      window.location.href = `user/add-to-cart/${pid}/${qty.value}`;
+    });
+  });
+</script>
+{% endblock script %}

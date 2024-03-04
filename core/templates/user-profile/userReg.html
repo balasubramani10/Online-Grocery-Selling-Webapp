@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+{% include "components/header.html" %}
+{% comment %}  {% endcomment %}
+<div class="loginContainer formContainer sectionPadding">
+    <div class="registraionContainerForm ContainerForm">
+        <div class="registraionContainerHeader ContainerFormHeader">
+            <h4>Create Account</h4>
+        </div>
+        <form  method="post" class="registraionForm inputForm">
+            {% csrf_token %}
+            <div class="userInputs">
+                
+               
+                <input type="text" name="user_profile_name"  placeholder="Enter Your Name *">
+                <input type="text" name="user_profile_last_name"  placeholder="Enter Your Last Name">
+                <input type="email" name="user_email"  placeholder="Enter Your E-Mail">
+                <input type="password"  name="user_set_password" placeholder="Create Your Password *">
+                <input type="password"  name="user_set_password_confirm" placeholder="Confirm Your Password *" >
+                {% include "components/alerts.html" %}
+                
+                
+            </div>
+            <div class="registraionBtn formInputBtn">
+                <button type="submit">Create Account</button>
+            </div>
+        </form>
+        <div class="signinAccountLink formExtraLinks">
+            <p>Already Have a account ? </p>
+            <a href="/user-login"><button>Login</button></a>
+        </div>
+    </div>
+</div>
+{% comment %}  {% endcomment %}
+
+{% include "components/footer.html" %}
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% block content %}
+
+<!-- Categories Section Below -->
+<section class="categories sectionPadding">
+    <div class="catVerScrollBtn verScrollBtn">
+        <img src="/Media/icons/back.png" alt="">
+    </div>
+    <div class="categoriesLinks">
+        {% for i in obj %}
+        <a href="">
+            <div class="categorieLink">
+                <img src="{{i.image}}" alt="">
+            </div>
+        </a>
+        {% endfor %}
+        
+    </div>
+    <div class="catVerScrollBtn verScrollBtn">
+        <img src="/Media/icons/next.png" alt="">
+    </div>
+</section>
+<!-- Categories Section Above -->
+
+{% endblock content %}

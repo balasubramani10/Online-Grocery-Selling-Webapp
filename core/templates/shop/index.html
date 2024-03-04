@@ -1,0 +1,10 @@
+<h1>Hello Buddy</h1>
+
+{% for i in all  %}
+{{i.name}} <br>
+{{i.product_images.first}}
+<img src="media/{{i.image}}" alt="">
+{{i.retail_price}} <br>
+{{i.discount_percentage}} <br>
+{{i.selling_price}} <br>
+{% endfor %}

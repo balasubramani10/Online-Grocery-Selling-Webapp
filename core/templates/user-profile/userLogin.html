@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+{% include "components/header.html" %}
+
+{% comment %}  {% endcomment %}
+<div class="loginContainer formContainer sectionPadding">
+    
+    <div class="loginContainerForm  ContainerForm">
+        <div class="loginContainerHeader ContainerFormHeader">
+            <h4>Login Here</h4>
+        </div>
+        <form method="post" class="loginForm inputForm">
+           {% csrf_token %}
+            <div class="userInputs">
+               
+                <input type="email"  name="user_email" placeholder="Enter Your Email *"  >
+                
+                <input type="password"  name="user_password" placeholder="Enter Your Password *">
+                {% include "components/alerts.html" %}
+
+            </div>
+            <div class="loginOptions inputFormOptions">
+                <div class="rememberme">
+                    <input type="checkbox">
+                    <label for="">Remember Me</label>
+                </div>
+                <div class="forgotPass">
+                    <a href="">Forgot Password?</a>
+                </div>
+                
+            </div>
+            
+            <div class="loginBtn formInputBtn">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <div class="createAccountLink formExtraLinks">
+            <p>Don't Have a account ? </p>
+            <a href="/user-registration"><button>Create Account</button></a>
+        </div>
+    </div>
+</div>
+{% comment %}  {% endcomment %}
+
+
+{% include "components/footer.html" %}
+{% endblock content %}

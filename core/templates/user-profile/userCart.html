@@ -1,0 +1,169 @@
+{% extends "base/base.html" %}
+{% block content %}
+{% include "components/header.html" %}
+
+
+
+{% comment %}  {% endcomment %}
+
+    <!-- Cart Below -->
+
+
+    <div class="cartSection sectionPadding">
+        <div class="cartNavbar">
+            <span>Home /</span>
+            <span>Shopping Cart</span>
+        </div>
+        <div class="cartContent">
+            <div class="cartTable">
+                <div class="cartTableHeader">
+                    <h4>Your Shoping Cart</h4>
+                </div>
+                
+                <div class="productTable">
+                    <table>
+                        {% comment %} <thead>
+                            
+                                <th colspan=2>Product Name</th>
+                                <th>Price</th>
+                                <th>QTY</th>
+                                <th>Subtotal</th>
+                                <th>Action</th>
+                            
+                        </thead> {% endcomment %}
+                        
+                        <tbody>
+                           
+                            {% for i in cart_items %}
+                            <tr>
+                                <td class="productTableImg">
+                                    <img src="/{{i.product.images.first.image}}" alt="">
+                                </td>
+                                <td class="productTableDetails">
+                                    <h4 class="title">
+                                        {{i.product.name}}
+                                    </h4>
+                                    <h6 class="categories">
+                                        <a href="">{{i.product.category.name}}</a>
+                                    </h6>
+                                    <div class="impTags">
+                                        <a href="">Tag1</a>
+                                        <a href="">Tag2</a>
+                                        <a href="">Tag3</a>
+                                    </div>
+                                </td>
+                                <td class="productTablePrice">
+                                    <h4  class="oldPrice">{{i.product.retail_price}}₹</h4>
+                                    <h4 class="currentPrice">{{i.product.selling_price}}₹</h4>
+                                </td>
+                                <td class="tableQtySelect">
+                                    <div class="productQtySelect">
+                                        <div class="minus">
+                                            <h2>&minus;</h2>
+                                        </div>
+                                        <div class="producctQtyNos">
+                                            <input type="number" value="{{i.product_qty}}">
+                                        </div>
+                                        <div class="plus">
+                                            <h2>&plus;</h2>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="productTableSubtotal">
+                                    <h4 class="oldPrice">{{i.subtotal_retail_price}}₹</h4>
+                                    <h4 class="currentPrice">{{i.subtotal}}₹</h4>
+                                   
+                                
+                                </td>
+                                <td class="cartActionBtns">
+                                    <!--<a href="" class="saveBtn">
+                                        <button>Save</button>
+                                    </a>-->
+                                    <a href="{% url 'remove_cart_items' i.u_id %}" class="removeBtn">
+                                        
+                                        <button>Remove</button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                            
+                           
+                        </tbody>
+                        
+                    </table>
+
+                </div>
+                
+                
+                
+
+                
+            
+            </div>
+            <div class="cartSideBar">
+                <div class="cartCouponApply">
+                    <h5>Have Coupon ?</h5>
+                    <form action="">
+                        <input type="text" placeholder="Coupon Code">
+                        <button type="submit">Apply</button>
+                    </form>
+                </div>
+                <div class="cartTotalAmt">
+                   
+                    {% for i in cart  %}
+                    <div class="cartCalc">
+                        <div class="totalPrice">
+                            <span>Total Price :</span>
+                            <span>{{i.cart_total_retail_price}}₹</span>
+                        </div>
+                        <div class="discount">
+                            <span>Discount :</span>
+                            <span>{{i.cart_dicount}}₹</span>
+                        </div>
+                        <div class="couponDiscount">
+                            <span>Coupon Discount :</span>
+                            <span>N/A</span>
+                        </div>
+                        <div class="diliveryFee">
+                            <span>Shipping Charges :</span>
+                            <span>N/A</span>
+                        </div>
+                    </div>
+                    <div class="cartCheckOutOptions">
+                        <div class="finalAmt">
+                            <span>Final Price :</span>
+                            <span>{{i.cart_total}}₹</span>
+                        </div>
+                        <div class="btns">
+                            <div class="checkOutBtn">
+                                {% if  i.cart_items.count %}
+                                <a href="{% url 'check_out' i.u_id %}">
+                                    <button >Check Out</button>
+                                </a>
+                
+                                {% endif %}
+                                
+                            </div>
+                            <div class="backToShop">
+                                <button>Back To Shop</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- Cart Above -->
+
+
+{% comment %}  {% endcomment %}
+
+
+{% include "components/footer.html" %}
+{% endblock content %}

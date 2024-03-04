@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/officals/krishnaStoreLogo.png' %}">
+    <title>{% block title %}{% endblock title %}</title>
+
+
+    <link rel="stylesheet" href="{% static  'style_sheets/style.css' %}">
+</head>
+<body>
+
+    {% block content %}
+    {% comment %} content Here {% endcomment %}
+    {% endblock content %}
+
+    {% block script %}
+    {% comment %}Additonal  Script Here {% endcomment %}
+    {% endblock script %}
+
+
+    <script src="{% static 'script_sheets/script.js' %}" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base/base.html" %}
+
+
+{% block content %}
+{% include "components/header.html" %}
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+  }
+
+  h1 {
+      color: #333;
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+  }
+
+  th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+  }
+
+  th {
+      background-color: #00415a;
+      color: white;
+  }
+</style>
+<body>
+
+    <h1>Order History</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Name</th>
+                
+                <th>Time</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        {% for i in orders  %}
+        <tbody>
+            <!-- Replace the following rows with actual data retrieved from your server -->
+            <tr>
+                <td>{{i.order_id}}</td>
+                <td>{{i.for_user.first_name}}</td>
+                {% for j in i.items.all  %}
+                <td>2</td>
+                {% endfor %}
+                <td>{{i.time}}</td>
+                <td>{{i.for_user.email}}</td>
+                {% if i.payment_status %}
+                <td>Success</td>
+                {% else %}
+                <td>Failed</td>
+                {% endif %}
+            </tr>
+            
+            <!-- Add more rows as needed -->
+        </tbody>
+        {% endfor %}
+    </table>
+
+</body>
+{% include "components/footer.html" %}
+{% endblock content %}
+
+</html>

@@ -1,0 +1,40 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+{% include "components/header.html" %}
+{% comment %}  {% endcomment %}
+
+<div class="categoryViewSection sectionPadding">
+    <div class="productViewNavBar">
+        <div class="productNavLinks">
+          <a href="/">Home /</a>
+          <a href="">Category /</a>
+          <a href="">Product Name</a>
+        </div>
+    </div>
+    <div class="shopContainerContects shopAllProducts">
+        <div class="shopContainerRight">
+            <div class="banner">
+                <h4>Quality & Freshness Gaurantee ! </h4>
+            </div>
+            {% for i in all_category  %}
+            <div class="todayDealsBox productBox">
+                <div class="productImg">
+                    <img src="{{i.image}}" alt="">
+                </div>
+                <div class="productLabel">
+                    <h4>{{i.name}}</h4>
+                </div>
+                <div class="addTOCartBtn invert">
+                    
+                    <button>View All Products</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</div>
+{% comment %}  {% endcomment %}
+{% comment %} {% include "components/footer.html" %} {% endcomment %}
+{% endblock content %}

@@ -1,0 +1,83 @@
+{% load static %}
+{% block content %}
+
+<!-- Header and Navigation Bar Below -->
+<nav class="miniNavBar sectionPadding">
+    <div class="miniNavBarLeft">
+        <p>
+            Flat 10% Off On All Prepaid Orders | Code : VMK10
+        </p>
+    </div>
+    <div class="miniNavBarRight">
+       <a href="">Location</a>
+    </div>
+</nav>
+<nav class="mainNavBar sectionPadding">
+    <div class="logo">
+        <a href="" class="logoIcon">
+            <img src="{% static 'images/officials/krishnaStoreLogo.png' %}" alt="Krishna Store">
+        </a>
+    </div>
+    <div class="navBarSearchBox">
+        <form action="{% url 'shop_all_products' %}">
+            <input type="text" placeholder="Search Here.." name="header_search">
+            <button>Search</button>
+        </form>
+    </div>
+    <div class="navIcons">
+        <div class="user">
+            <div class="icon">
+                <a href="">
+                    <img src="{% static 'images/icons/profile.png' %}" alt="">
+                </a>
+            </div>
+            <div class="options">
+                <div class="greetings">
+                    <h4>Welcome</h4>
+                </div>
+                <div class="links">
+                    {% if request.user.is_authenticated %}
+                    <div class="links">
+                        <a href="">{{request.user.first_name}}</a>
+                        <span>|</span>
+                        <a href="{% url 'user_logout' %}">Sign Out</a>
+                    </div>
+                    {% else %}
+                    <div class="links">
+                        <a href="{% url 'user_login' %}">Sign In</a>
+                        <span>|</span>
+                        <a href="{% url 'user_registration' %}">Sign Up</a>
+                    </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        <div class="cart">
+            <div class="cart">
+                <a href="{% url 'user_cart' %}" class="cartLogo">
+                    <img src="{% static 'images/icons/shopping-cart.png' %}" alt="">
+                </a>
+                
+                <div class="cartNos">
+                    <h6>{{request.user.profile.cart_items_count}}</h6>
+                </div>
+            </div>
+            <div class="cartQucikView">
+                <h1>Cart Here</h1>
+            </div>
+        </div>
+        
+    </div>
+</nav>
+<nav class="subNavBar sectionPadding">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'shop_all_products' %}">Shop</a>
+    <a href="{% url 'user_order' %}">Orders</a>
+    <a href="{% url 'user_order' %}">Account</a>
+    <a href="{% url 'contact_page' %}">Need Help?</a>
+</nav>
+<!-- Header and Navigation Bar Above -->
+
+
+{% endblock content %}

@@ -1,0 +1,145 @@
+{% extends "base/base.html" %}
+{% block content %}
+{% include "components/header.html" %}
+<div class="productTable">
+    <table>
+        {% comment %} <thead>
+            
+                <th colspan=2>Product Name</th>
+                <th>Price</th>
+                <th>QTY</th>
+                <th>Subtotal</th>
+                <th>Action</th>
+            
+        </thead> {% endcomment %}
+        
+        <tbody>
+           
+            {% for i in order.items.all %}
+            <tr>
+                <td class="productTableImg">
+                    <img src="/{{i.product.images.first.image}}" alt="">
+                </td>
+                <td class="productTableDetails">
+                    <h4 class="title">
+                        {{i.product.name}}
+                    </h4>
+                    <h6 class="categories">
+                        <a href="">{{i.product.category.name}}</a>
+                    </h6>
+                    
+                </td>
+                <td class="productTablePrice">
+                    <h4  class="oldPrice">{{i.product.retail_price}}₹</h4>
+                    <h4 class="currentPrice">{{i.product.selling_price}}₹</h4>
+                </td>
+                <td class="tableQtySelect">
+                    <div class="productQtySelect">
+                        
+                        <div class="producctQtyNos">
+                            <input type="number" value="{{i.product_qty}}">
+                        </div>
+                        
+                    </div>
+                </td>
+                <td class="productTableSubtotal">
+                    <h4 class="oldPrice">{{i.subtotal_retail_price}}₹</h4>
+                    <h4 class="currentPrice">{{i.subtotal}}₹</h4>
+                   
+                
+                </td>
+                <td class="cartActionBtns">
+                    <!--<a href="" class="saveBtn">
+                        <button>Save</button>
+                    </a>-->
+                    <a href="{% url 'remove_cart_items' i.u_id %}" class="removeBtn">
+                        
+                        <button>Remove</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style = "font-weight : bold;">Total Amt : {{order.order_total}}₹</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button id="rzp-button1">Pay with Razorpay</button></td>
+            </tr>
+            
+            
+           
+        </tbody>
+        
+    </table>
+
+</div>
+{% include "components/footer.html" %}
+
+
+
+
+
+
+
+
+<input type="hidden" value="{{order.u_id}}" id="order_id">
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% comment %} <button id="rzp-button1">Pay with Razorpay</button> {% endcomment %}
+
+
+<script>
+order_id = document.getElementById("order_id").value
+var options = {
+    "key": "rzp_test_SV6MDR2inEcnXv", // Enter the Key ID generated from the Dashboard
+    "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Krishna Store",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{payment_details.client_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        window.location.href = `success/?user_order_id=${order_id}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&razorpay_signature=${response.razorpay_signature}`
+    },
+    "prefill": {
+        "name": "{{order.for_user.first_name}}",
+        "email": "{{order.for_user.email}}",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Krishna Store"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+
+{% endblock content %}
