@@ -159,7 +159,7 @@ def check_out(request, cart_id):
         print(order.order_total())
         
         user = request.user
-        client = razorpay.Client(auth = ("rzp_test_SV6MDR2inEcnXv","WSjw90j9EsaL9uI4SVSrs1Yx"))
+        client = razorpay.Client(auth = ("testKey","testid"))
         order = Orders.objects.filter(for_user = user)
         order = order[0]
         payment = client.order.create(
